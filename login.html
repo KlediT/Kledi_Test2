@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Register</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="icon" href="./Images/Restaurants/download.png" type="image/icon type">
+    <style>
+        .password-mismatch {
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    
+<div class="container">
+    <div class="loginbg">
+        <div class="box signin">
+            <h2>Already Have an Account ?</h2>
+            <button class="signinbtn">Sign in</button>
+        </div>
+        <div class="box signup">
+            <h2>Dont Have an Account ?</h2>
+            <button class="signupbtn">Sign up</button>
+        </div>
+    </div>
+    <div class="formbx">
+        <div class="form signinform">
+            <form id="signinForm" action="home.html">
+                <h2>Hot N' Fast</h2>
+                <h3>Sign In</h3>
+                <input type="text" id="signinUsername" placeholder="Username" required pattern="[a-zA-Z]+">
+                <input type="password" id="signinPassword" placeholder="Password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$">
+                <input type="submit" value="Login">
+            </form>    
+        </div>
+        <div class="form signupform">
+            <form id="signupForm">
+                <h3>Sign up</h3>
+                <input type="text" id="signupName" placeholder="Enter Your Name" required pattern="[a-zA-Z]+">
+                <input type="text" id="signupEmail" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                <input type="date" id="signupDOB" placeholder=" Enter your Date of birth">
+                <input type="password" id="password" placeholder="Password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$">
+                <input type="password" id="confirmPassword" placeholder="Confirm password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$" required>
+                <input type="submit" value="Sign Up">
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const signinbtn = document.querySelector('.signinbtn');
+    const signupbtn = document.querySelector('.signupbtn');
+    const formbx = document.querySelector('.formbx'); 
+    const body = document.querySelector('body')
+
+    signupbtn.onclick = function(){
+        formbx.classList.add('active')
+        body.classList.add('active')
+    }
+    signinbtn.onclick = function(){
+        formbx.classList.remove('active')
+        body.classList.remove('active')
+    }
+
+    document.getElementById("password").addEventListener("input", function(event) {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+            document.getElementById("password").classList.add("password-mismatch");
+            document.getElementById("confirmPassword").classList.add("password-mismatch");
+        } else {
+            document.getElementById("password").classList.remove("password-mismatch");
+            document.getElementById("confirmPassword").classList.remove("password-mismatch");
+        }
+    });
+
+    document.getElementById("confirmPassword").addEventListener("input", function(event) {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+            document.getElementById("password").classList.add("password-mismatch");
+            document.getElementById("confirmPassword").classList.add("password-mismatch");
+        } else {
+            document.getElementById("password").classList.remove("password-mismatch");
+            document.getElementById("confirmPassword").classList.remove("password-mismatch");
+        }
+    });
+
+    document.getElementById("signupForm").addEventListener("submit", function(event) {
+    var email = document.getElementById("signupEmail").value;
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+    var registeredEmails = ["user1@example.com", "user2@example.com"]; 
+
+    
+    if (password !== confirmPassword) {
+        event.preventDefault(); 
+        alert("Your passwords don't match. Please try again.");
+        return; 
+    }
+
+    alert("Your account has been added successfully.");
+});
+
+    document.getElementById("signinForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form submission
+        var username = document.getElementById("signinUsername").value;
+        var password = document.getElementById("signinPassword").value;
+        var registeredUsers = [
+            {username: "user1", password: "password1"},
+            {username: "user2", password: "password2"}
+        ]; // A list of registered usernames and passwords
+
+        var found = registeredUsers.find(user => user.username.toLowerCase() === username && user.password === password);
+        if (found) {
+            alert("Login successful!"); // Simulating successful login
+        } window.location.href = "home.html";
+    });
+</script>
+      
+</body>
+</html>
+
